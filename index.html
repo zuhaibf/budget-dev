@@ -18,7 +18,7 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_MGLvTa1fn1v4gU6u1K5a4w_DL8AWg3W",
   { auth: { persistSession:true, detectSessionInUrl:true, storage:window.localStorage } }
 );
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.js').catch(()=>{});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget-dev/sw.js').catch(()=>{});
 </script>
 <style>
 /* ── THEME VARIABLES ── */
