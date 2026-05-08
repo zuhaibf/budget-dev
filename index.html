@@ -99,7 +99,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.j
 }
 
 * { box-sizing:border-box; }
-body { margin:0; font-family:-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--text); max-width:420px; margin:auto; transition:background 0.25s,color 0.25s; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--text); max-width:400px; margin:auto; transition:background 0.25s,color 0.25s; }
 .container { padding:16px; padding-bottom:110px; }
 .card { background:var(--card); padding:16px; border-radius:18px; margin-bottom:12px; }
 .row { display:flex; justify-content:space-between; margin-top:10px; }
@@ -255,11 +255,6 @@ input[type=number] { -moz-appearance:textfield; }
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
       <h2 style="margin:0;">Overview</h2>
       <button onclick="logout()" class="logout-btn">Logout</button>
-    </div>
-    <div class="theme-switcher" style="margin-bottom:12px;">
-      <button class="theme-btn active" id="btn-theme-dark" onclick="setTheme('dark')">Dark</button>
-      <button class="theme-btn" id="btn-theme-light" onclick="setTheme('light')">Light</button>
-      <button class="theme-btn" id="btn-theme-pastel" onclick="setTheme('pastel')">Pastel</button>
     </div>
     <div class="balance-card" id="balanceCard">
       <div class="bal-label">Balance <span id="homeMonthLabel" style="font-size:11px;color:var(--muted);"></span></div>
@@ -496,12 +491,13 @@ let editingId=null, deletingId=null, appReady=false;
 
 /* ── THEME ── */
 function setTheme(theme) {
-  document.body.dataset.theme = theme==='dark' ? '' : theme;
+  document.body.dataset.theme = theme === 'dark' ? '' : theme;
   localStorage.setItem('bm-theme', theme);
-  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
-  ['btn-theme-'+theme, 'more-btn-theme-'+theme].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.classList.add('active');
-  });
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('more-btn-theme-' + theme);
+  if (activeBtn) activeBtn.classList.add('active');
+  const addBtn = document.querySelector('.nav-item.primary svg');
+  if (addBtn) addBtn.style.stroke = theme === 'pastel' ? '#0d0d0d' : 'black';
   if (pieChartInst) renderCharts();
 }
 (function initTheme(){
