@@ -71,71 +71,185 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.j
   --icon-default-bg:rgba(107,114,128,0.12); --icon-default-color:#6b7280;
   --theme-btn-active-bg:#111; --theme-btn-active-color:#fff;
   --theme-btn-bg:#e5e7eb; --theme-btn-color:#6b7280;
-}
+}/* =========================
+   PASTEL EDITORIAL THEME
+   Replace ONLY your existing
+   [data-theme="pastel"] block
+   with this.
+   ========================= */
+
 [data-theme="pastel"] {
+
   /* ── Base ── */
-  --bg: #0d0b12;
-  --card: #17132a;
-  --field: #221c38;
-  --text: #f0e8ff;
-  --muted: #a89bc2;
-  --accent: #c084fc;
+  --bg:#f6efea;
+  --card:#f3ece7;
+  --field:#efe7e2;
+
+  --text:#241815;
+  --muted:#9b6f5f;
+
+  --accent:#e8b8a8;
 
   /* ── Semantic ── */
-  --danger: #f472b6;
-  --success: #4ade80;
+  --danger:#de7d62;
+  --success:#2f9b63;
 
   /* ── Balance card ── */
-  --bal-card-bg: #0f2a1e;
-  --bal-card-bg-neg: #2a0f1a;
+  --bal-card-bg:#efc8b8;
+  --bal-card-bg-neg:#f3d2cd;
 
   /* ── Income / Expense mini cards ── */
-  --income-card-bg: #0f1f17;
-  --expense-card-bg: #1f0f18;
-  --income-val: #4ade80;
-  --expense-val: #f472b6;
+  --income-card-bg:#f3efec;
+  --expense-card-bg:#f3efec;
+
+  --income-val:#2f9b63;
+  --expense-val:#de7d62;
 
   /* ── Nav ── */
-  --nav-bg: rgba(23, 19, 42, 0.85);
+  --nav-bg:rgba(246,239,234,0.92);
 
   /* ── Logout button ── */
-  --logout-bg: #221c38;
-  --logout-color: #c084fc;
-  --logout-border: #3d2f6b;
+  --logout-bg:#efe7e2;
+  --logout-color:#f7f1ed;
+  --logout-border:#ead8cf;
 
   /* ── Category icons ── */
-  --icon-food-bg: rgba(244, 114, 182, 0.18);
-  --icon-food-color: #f472b6;
-  --icon-rent-bg: rgba(251, 191, 36, 0.18);
-  --icon-rent-color: #fbbf24;
-  --icon-shop-bg: rgba(192, 132, 252, 0.18);
-  --icon-shop-color: #c084fc;
-  --icon-travel-bg: rgba(56, 189, 248, 0.18);
-  --icon-travel-color: #38bdf8;
-  --icon-sub-bg: rgba(99, 179, 237, 0.18);
-  --icon-sub-color: #63b3ed;
-  --icon-transfer-bg: rgba(148, 163, 184, 0.18);
-  --icon-transfer-color: #94a3b8;
-  --icon-health-bg: rgba(251, 113, 133, 0.18);
-  --icon-health-color: #fb7185;
-  --icon-grocery-bg: rgba(74, 222, 128, 0.18);
-  --icon-grocery-color: #4ade80;
-  --icon-salary-bg: rgba(74, 222, 128, 0.18);
-  --icon-salary-color: #4ade80;
-  --icon-freelance-bg: rgba(34, 211, 238, 0.18);
-  --icon-freelance-color: #22d3ee;
-  --icon-bonus-bg: rgba(74, 222, 128, 0.18);
-  --icon-bonus-color: #4ade80;
-  --icon-donation-bg: rgba(244, 114, 182, 0.18);
-  --icon-donation-color: #f472b6;
-  --icon-default-bg: rgba(148, 163, 184, 0.18);
-  --icon-default-color: #94a3b8;
+  --icon-food-bg:#f1ddd4;
+  --icon-food-color:#de7d62;
+
+  --icon-rent-bg:#f2e0ca;
+  --icon-rent-color:#d07a00;
+
+  --icon-shop-bg:#e5ddf4;
+  --icon-shop-color:#7f63c9;
+
+  --icon-travel-bg:#d9e8f4;
+  --icon-travel-color:#4f90c6;
+
+  --icon-sub-bg:#e5ddf4;
+  --icon-sub-color:#7f63c9;
+
+  --icon-transfer-bg:#e7e2de;
+  --icon-transfer-color:#8c8178;
+
+  --icon-health-bg:#f4d6db;
+  --icon-health-color:#d36b82;
+
+  --icon-grocery-bg:#d7eadf;
+  --icon-grocery-color:#2f9b63;
+
+  --icon-salary-bg:#d7eadf;
+  --icon-salary-color:#2f9b63;
+
+  --icon-freelance-bg:#d9e8f4;
+  --icon-freelance-color:#4f90c6;
+
+  --icon-bonus-bg:#d7eadf;
+  --icon-bonus-color:#2f9b63;
+
+  --icon-donation-bg:#f2d8df;
+  --icon-donation-color:#cc6f8e;
+
+  --icon-default-bg:#ece5e0;
+  --icon-default-color:#8e8177;
 
   /* ── Theme switcher ── */
-  --theme-btn-active-bg: #c084fc;
-  --theme-btn-active-color: #0d0b12;
-  --theme-btn-bg: #221c38;
-  --theme-btn-color: #a89bc2;
+  --theme-btn-active-bg:#241815;
+  --theme-btn-active-color:#fff;
+
+  --theme-btn-bg:#efe7e2;
+  --theme-btn-color:#8d776f;
+}
+
+[data-theme="pastel"] .nav-item.primary {
+  background:#f0ddd5;
+}
+
+[data-theme="pastel"] .nav-item.primary svg {
+  stroke:#241815;
+}
+
+[data-theme="pastel"] .nav-item.active {
+  color:#b36b55;
+}
+
+[data-theme="pastel"] .balance-card {
+  border:1px solid rgba(176,131,112,0.14);
+}
+
+[data-theme="pastel"] .carry-fwd {
+  border-top-color:rgba(176,131,112,0.14);
+}
+
+[data-theme="pastel"] .txn-item {
+  border-bottom-color:rgba(180,150,140,0.16);
+}
+
+[data-theme="pastel"] .day-group-spacer {
+  border-bottom-color:rgba(180,150,140,0.12);
+}
+
+[data-theme="pastel"] .btn-delete {
+  background:rgba(222,125,98,0.10);
+}
+
+[data-theme="pastel"] .btn-delete svg {
+  stroke:#de7d62;
+}
+
+[data-theme="pastel"] .btn-confirm-delete {
+  background:#de7d62 !important;
+  color:#fff !important;
+}
+
+/* softer cards */
+[data-theme="pastel"] .card {
+  border:1px solid rgba(180,150,140,0.12);
+}
+
+/* better typography feel */
+[data-theme="pastel"] h2,
+[data-theme="pastel"] h3 {
+  letter-spacing:-0.03em;
+}
+
+/* muted metadata */
+[data-theme="pastel"] .txn-meta {
+  color:#a17869;
+}
+
+/* softer navbar */
+[data-theme="pastel"] .nav-inner {
+  border:1px solid rgba(180,150,140,0.10);
+}
+
+/* softer search field */
+[data-theme="pastel"] .search-bar {
+  border:1px solid rgba(180,150,140,0.10);
+}
+
+/* cleaner inputs */
+[data-theme="pastel"] input,
+[data-theme="pastel"] select {
+  border:1px solid transparent;
+}
+
+/* better chart card */
+[data-theme="pastel"] #catBreakdownCard,
+[data-theme="pastel"] #charts .card {
+  border:1px solid rgba(180,150,140,0.10);
+}
+
+/* softer modal */
+[data-theme="pastel"] .modal {
+  border-top:1px solid rgba(180,150,140,0.10);
+}
+
+/* optional subtle softness */
+[data-theme="pastel"] .card,
+[data-theme="pastel"] .balance-card,
+[data-theme="pastel"] .modal {
+  box-shadow:0 1px 2px rgba(90,60,40,0.03);
 }
 [data-theme="pastel"] .nav-item.primary { background:#c084fc; }
 [data-theme="pastel"] .nav-item.primary svg { stroke:#0d0b12; }
