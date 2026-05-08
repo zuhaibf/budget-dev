@@ -21,7 +21,6 @@ const supabaseClient = supabase.createClient(
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.js').catch(()=>{});
 </script>
 <style>
-/* ── THEME VARIABLES ── */
 :root {
   --bg:#0b0b0b; --card:#151515; --field:#1f1f1f;
   --text:#fff; --muted:#9ca3af; --accent:#3b82f6;
@@ -48,8 +47,6 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.j
   --theme-btn-active-bg:#fff; --theme-btn-active-color:#000;
   --theme-btn-bg:#1f1f1f; --theme-btn-color:#9ca3af;
 }
-
-/* ── LIGHT THEME ── */
 [data-theme="light"] {
   --bg:#f5f5f5; --card:#ffffff; --field:#f0f0f0;
   --text:#111111; --muted:#6b7280; --accent:#2563eb;
@@ -75,8 +72,6 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.j
   --theme-btn-active-bg:#111; --theme-btn-active-color:#fff;
   --theme-btn-bg:#e5e7eb; --theme-btn-color:#6b7280;
 }
-
-/* ── PASTEL THEME ── */
 [data-theme="pastel"] {
   --bg:#0d0d0d; --card:#181818; --field:#222222;
   --text:#f0e8ff; --muted:#7a6a8a; --accent:#c4a8ff;
@@ -107,16 +102,15 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.j
 body { margin:0; font-family:-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--text); max-width:420px; margin:auto; transition:background 0.25s,color 0.25s; }
 .container { padding:16px; padding-bottom:110px; }
 .card { background:var(--card); padding:16px; border-radius:18px; margin-bottom:12px; }
+.row { display:flex; justify-content:space-between; margin-top:10px; }
 .green { color:var(--success); } .red { color:var(--danger); }
 .hidden { display:none; }
 
-/* ── AUTH ── */
 #auth { padding:40px 24px; }
 #auth h2 { margin-bottom:8px; }
 #auth p { color:var(--muted); font-size:14px; margin-bottom:24px; }
 #auth input { width:100%; padding:14px; border:none; border-radius:14px; background:var(--field); color:var(--text); font-size:16px; outline:none; margin-bottom:12px; }
 
-/* ── FIELDS ── */
 .field { position:relative; margin-top:18px; }
 .field input, .field select { width:100%; padding:34px 14px 18px; border:none; border-radius:14px; background:var(--field); color:var(--text); font-size:17px; outline:none; appearance:none; }
 .field label { position:absolute; left:14px; top:10px; font-size:12px; color:var(--muted); }
@@ -127,46 +121,13 @@ body { margin:0; font-family:-apple-system,BlinkMacSystemFont,sans-serif; backgr
 button { width:100%; padding:16px; border-radius:14px; border:none; margin-top:16px; font-weight:600; background:white; color:black; cursor:pointer; }
 button:disabled { opacity:0.5; cursor:not-allowed; }
 
-/* ── INCOME/EXPENSE MINI CARDS ── */
-.income-expense-row { display:flex; gap:12px; margin-bottom:12px; }
-.mini-card { flex:1; padding:14px 16px; border-radius:16px; background:var(--income-card-bg); }
-.mini-card.expense { background:var(--expense-card-bg); }
-[data-theme="pastel"] .mini-card { border:1px solid rgba(168,230,200,0.15); }
-[data-theme="pastel"] .mini-card.expense { border:1px solid rgba(244,168,184,0.15); }
-
-/* ── LOGOUT BUTTON ── */
-.logout-btn { width:auto; padding:8px 20px; font-size:13px; margin:0; border-radius:20px !important; background:var(--logout-bg) !important; color:var(--logout-color) !important; border:1px solid var(--logout-border) !important; font-weight:500; }
-
-/* ── THEME SWITCHER ── */
-.theme-switcher { display:flex; gap:6px; }
-.theme-btn { width:auto; padding:6px 14px; font-size:12px; border-radius:20px; margin:0; border:1px solid transparent; font-weight:500; background:var(--theme-btn-bg); color:var(--theme-btn-color); cursor:pointer; transition:background 0.2s,color 0.2s; }
-.theme-btn.active { background:var(--theme-btn-active-bg); color:var(--theme-btn-active-color); }
-
-/* ── NAV ── */
-.nav { position:fixed; bottom:12px; width:100%; max-width:420px; display:flex; justify-content:center; }
-.nav-inner { width:95%; display:flex; justify-content:space-between; align-items:center; background:var(--nav-bg); backdrop-filter:blur(12px); border-radius:20px; padding:10px 12px; }
-.nav-item { display:flex; flex-direction:column; align-items:center; font-size:10px; color:#aaa; background:none; border:none; width:auto; margin:0; padding:4px 6px; cursor:pointer; }
-.nav-item.active { color:var(--text); }
-[data-theme="pastel"] .nav-item.active { color:var(--accent); }
-.nav-item.primary { width:56px !important; height:56px !important; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; margin-top:-30px; }
-[data-theme="pastel"] .nav-item.primary { background:#c4a8ff; }
-[data-theme="pastel"] .nav-item.primary svg { stroke:#0d0d0d; }
-
-/* ── BALANCE CARD ── */
-.balance-card { border-radius:18px; padding:20px; margin-bottom:12px; }
-.balance-card .bal-label { font-size:13px; color:var(--muted); margin-bottom:4px; }
-.balance-card .bal-amount { font-size:28px; font-weight:700; }
-.carry-fwd { display:flex; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; }
-[data-theme="light"] .carry-fwd { border-top-color:rgba(0,0,0,0.08); }
-[data-theme="pastel"] .balance-card { border:1px solid rgba(196,168,255,0.15); }
-[data-theme="pastel"] .carry-fwd { border-top-color:rgba(196,168,255,0.1); }
-
-/* ── MISC ── */
 .empty { text-align:center; color:#666; padding:16px; }
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
 input[type=number] { -moz-appearance:textfield; }
 
-/* ── TRANSACTIONS ── */
+/* ── Scrollable recent list — taller to reduce dead space ── */
+.txn-scroll { max-height:420px; overflow-y:auto; }
+
 .month-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .month-nav button { width:36px; height:36px; border-radius:50%; padding:0; margin:0; background:var(--field); color:var(--text); font-size:18px; display:flex; align-items:center; justify-content:center; }
 .month-nav span { font-size:16px; font-weight:600; }
@@ -187,11 +148,10 @@ input[type=number] { -moz-appearance:textfield; }
 [data-theme="light"] .day-group-spacer { border-bottom-color:#f3f4f6; }
 [data-theme="pastel"] .day-group-spacer { border-bottom-color:#222; }
 
-/* ── SEARCH ── */
 .search-bar { display:flex; align-items:center; background:var(--field); border-radius:12px; padding:10px 14px; margin-bottom:12px; gap:8px; }
 .search-bar input { background:none; border:none; color:var(--text); font-size:14px; outline:none; flex:1; }
+.search-bar svg { flex-shrink:0; }
 
-/* ── BUDGETS & GOALS ── */
 .budget-item { margin-bottom:14px; }
 .budget-item:last-child { margin-bottom:0; }
 .budget-label { display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px; }
@@ -202,14 +162,11 @@ input[type=number] { -moz-appearance:textfield; }
 .goal-label { display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px; }
 .goal-bar-bg { background:var(--field); border-radius:99px; height:10px; overflow:hidden; }
 .goal-bar-fill { height:100%; border-radius:99px; background:var(--accent); transition:width 0.4s; }
-
-/* ── INSIGHTS ── */
 .insight-item { display:flex; gap:10px; align-items:flex-start; padding:12px 0; border-bottom:1px solid #222; font-size:13px; line-height:1.5; }
 [data-theme="light"] .insight-item { border-bottom-color:#f3f4f6; }
 .insight-item:last-child { border-bottom:none; }
 .insight-icon { flex-shrink:0; display:flex; align-items:center; margin-top:1px; }
 
-/* ── MODALS ── */
 .modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:flex-end; justify-content:center; z-index:100; }
 .modal-bg.hidden { display:none !important; }
 .modal { background:var(--card); border-radius:24px 24px 0 0; padding:24px 20px 40px; width:100%; max-width:420px; }
@@ -221,11 +178,9 @@ input[type=number] { -moz-appearance:textfield; }
 .btn-confirm-delete { background:#ef4444 !important; color:#fff !important; }
 [data-theme="pastel"] .btn-confirm-delete { background:#f4a8b8 !important; color:#0d0d0d !important; }
 
-/* ── TOAST ── */
 .toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--card); color:var(--text); padding:10px 20px; border-radius:12px; font-size:13px; font-weight:500; opacity:0; transition:opacity 0.2s,transform 0.2s; z-index:200; white-space:nowrap; border:1px solid #333; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* ── CHARTS ── */
 .chart-month-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .chart-month-nav button { width:32px; height:32px; border-radius:50%; padding:0; margin:0; background:var(--field); color:var(--text); font-size:18px; display:flex; align-items:center; justify-content:center; }
 .chart-month-nav span { font-size:15px; font-weight:500; }
@@ -241,10 +196,43 @@ input[type=number] { -moz-appearance:textfield; }
 .cat-bar-amt { font-size:14px; font-weight:500; }
 .cat-bar-bg { background:var(--field); border-radius:99px; height:6px; overflow:hidden; }
 .cat-bar-fill { height:100%; border-radius:99px; }
-
-/* ── CAT ICON ── */
 .cat-icon-circle { width:36px; height:36px; border-radius:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 [data-theme="pastel"] .cat-icon-circle { border-radius:12px; width:38px; height:38px; }
+
+/* ── NAV ── */
+.nav { position:fixed; bottom:12px; width:100%; max-width:420px; display:flex; justify-content:center; }
+.nav-inner { width:95%; display:flex; justify-content:space-between; align-items:center; background:var(--nav-bg); backdrop-filter:blur(12px); border-radius:20px; padding:10px 12px; }
+.nav-item { display:flex; flex-direction:column; align-items:center; font-size:10px; color:#aaa; background:none; border:none; width:auto; margin:0; padding:4px 6px; cursor:pointer; }
+.nav-item.active { color:var(--text); }
+[data-theme="pastel"] .nav-item.active { color:var(--accent); }
+.nav-item.primary { width:56px !important; height:56px !important; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; margin-top:-30px; }
+[data-theme="pastel"] .nav-item.primary { background:#c4a8ff; }
+[data-theme="pastel"] .nav-item.primary svg { stroke:#0d0d0d; }
+
+/* ── BALANCE CARD ── */
+.balance-card { border-radius:18px; padding:20px; margin-bottom:12px; }
+.balance-card .bal-label { font-size:13px; color:var(--muted); margin-bottom:4px; }
+.balance-card .bal-amount { font-size:28px; font-weight:700; }
+.carry-fwd { display:flex; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; }
+[data-theme="light"] .carry-fwd { border-top-color:rgba(0,0,0,0.08); }
+[data-theme="pastel"] .balance-card { border:1px solid rgba(196,168,255,0.15); }
+[data-theme="pastel"] .carry-fwd { border-top-color:rgba(196,168,255,0.1); }
+
+/* ── INCOME/EXPENSE MINI CARDS ── */
+[data-theme="pastel"] #home .card:nth-child(3) { background:none; padding:0; }
+[data-theme="pastel"] #home .card:nth-child(3) > div:first-child { background:var(--income-card-bg); border-radius:14px; border:1px solid rgba(168,230,200,0.15); }
+[data-theme="pastel"] #home .card:nth-child(3) > div:last-child  { background:var(--expense-card-bg); border-radius:14px; border:1px solid rgba(244,168,184,0.15); }
+[data-theme="light"] #home .card:nth-child(3) > div:first-child  { background:var(--income-card-bg); }
+[data-theme="light"] #home .card:nth-child(3) > div:last-child   { background:var(--expense-card-bg); }
+
+/* ── LOGOUT ── */
+.logout-btn { width:auto; padding:8px 20px; font-size:13px; margin:0; border-radius:20px !important; background:var(--logout-bg) !important; color:var(--logout-color) !important; border:1px solid var(--logout-border) !important; font-weight:500; }
+[data-theme="pastel"] .logout-btn { background:#1e1428 !important; color:#c4a8ff !important; border:1px solid #3a2a5a !important; }
+
+/* ── THEME SWITCHER ── */
+.theme-switcher { display:flex; gap:6px; }
+.theme-btn { width:auto; padding:6px 14px; font-size:12px; border-radius:20px; margin:0; border:1px solid transparent; font-weight:500; background:var(--theme-btn-bg); color:var(--theme-btn-color); cursor:pointer; transition:background 0.2s,color 0.2s; }
+.theme-btn.active { background:var(--theme-btn-active-bg); color:var(--theme-btn-active-color); }
 </style>
 </head>
 <body>
@@ -268,36 +256,26 @@ input[type=number] { -moz-appearance:textfield; }
       <h2 style="margin:0;">Overview</h2>
       <button onclick="logout()" class="logout-btn">Logout</button>
     </div>
-
+    <div class="theme-switcher" style="margin-bottom:12px;">
+      <button class="theme-btn active" id="btn-theme-dark" onclick="setTheme('dark')">Dark</button>
+      <button class="theme-btn" id="btn-theme-light" onclick="setTheme('light')">Light</button>
+      <button class="theme-btn" id="btn-theme-pastel" onclick="setTheme('pastel')">Pastel</button>
+    </div>
     <div class="balance-card" id="balanceCard">
       <div class="bal-label">Balance <span id="homeMonthLabel" style="font-size:11px;color:var(--muted);"></span></div>
       <div class="bal-amount" id="balance">₹0</div>
-      <div class="carry-fwd">
-        <div>
-          <div style="color:var(--muted);margin-bottom:2px;">Carried forward</div>
-          <div style="font-weight:600;" id="carryFwdAmt">₹0</div>
-        </div>
-        <div style="text-align:right;">
-          <div style="color:var(--muted);margin-bottom:2px;" id="thisMonthNetLabel">May net</div>
-          <div style="font-weight:600;" id="thisMonthNet">+₹0</div>
-        </div>
+      <div class="carry-fwd" id="carryFwdRow">
+        <div><div style="color:var(--muted);margin-bottom:2px;">Carried forward</div><div style="font-weight:600;" id="carryFwdAmt">₹0</div></div>
+        <div style="text-align:right;"><div style="color:var(--muted);margin-bottom:2px;" id="thisMonthNetLabel">May net</div><div style="font-weight:600;" id="thisMonthNet">+₹0</div></div>
       </div>
     </div>
-
-    <div class="income-expense-row">
-      <div class="mini-card">
-        <small style="color:var(--muted);">Income</small>
-        <div id="income" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--income-val);">₹0</div>
-      </div>
-      <div class="mini-card expense">
-        <small style="color:var(--muted);">Expense</small>
-        <div id="expense" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--expense-val);">₹0</div>
-      </div>
+    <div class="row">
+      <div class="card" style="flex:1;margin-right:6px;"><small style="color:var(--muted);">Income</small><div id="income" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--income-val);">₹0</div></div>
+      <div class="card" style="flex:1;margin-left:6px;"><small style="color:var(--muted);">Expense</small><div id="expense" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--expense-val);">₹0</div></div>
     </div>
-
-    <!-- Recent Transactions — date grouped, no height cap -->
-    <div class="card" style="padding-top:8px;">
-      <div id="list"></div>
+    <div class="card">
+      <h3 style="margin:0 0 12px;">Recent Transactions</h3>
+      <div class="txn-scroll" id="list"></div>
     </div>
   </div>
 
@@ -359,7 +337,7 @@ input[type=number] { -moz-appearance:textfield; }
       <div class="error-msg hidden">Enter amount</div>
     </div>
     <div class="field">
-      <select id="type"><option value="expense">Expense</option><option value="income">Income</option></select>
+      <select id="type" onchange="updateCategories()"><option value="expense">Expense</option><option value="income">Income</option></select>
       <label>Type</label>
     </div>
     <div class="field">
@@ -427,7 +405,7 @@ input[type=number] { -moz-appearance:textfield; }
       <svg width="22" height="22" stroke="black" fill="none" stroke-width="2.5"><line x1="11" y1="4" x2="11" y2="18"/><line x1="4" y1="11" x2="18" y2="11"/></svg>
     </button>
     <button id="nav-charts" class="nav-item" onclick="show('charts')">
-      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+      <svg width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
       <span>Charts</span>
     </button>
     <button id="nav-more" class="nav-item" onclick="openMore()">
@@ -501,9 +479,9 @@ input[type=number] { -moz-appearance:textfield; }
     <div style="margin-top:18px;">
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500;letter-spacing:0.3px;">Theme</div>
       <div class="theme-switcher">
-        <button class="theme-btn" id="btn-theme-dark" onclick="setTheme('dark')">Dark</button>
-        <button class="theme-btn" id="btn-theme-light" onclick="setTheme('light')">Light</button>
-        <button class="theme-btn" id="btn-theme-pastel" onclick="setTheme('pastel')">Pastel</button>
+        <button class="theme-btn" id="more-btn-theme-dark" onclick="setTheme('dark')">Dark</button>
+        <button class="theme-btn" id="more-btn-theme-light" onclick="setTheme('light')">Light</button>
+        <button class="theme-btn" id="more-btn-theme-pastel" onclick="setTheme('pastel')">Pastel</button>
       </div>
     </div>
   </div>
@@ -521,8 +499,9 @@ function setTheme(theme) {
   document.body.dataset.theme = theme==='dark' ? '' : theme;
   localStorage.setItem('bm-theme', theme);
   document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
-  const btn=document.getElementById('btn-theme-'+theme);
-  if (btn) btn.classList.add('active');
+  ['btn-theme-'+theme, 'more-btn-theme-'+theme].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.classList.add('active');
+  });
   if (pieChartInst) renderCharts();
 }
 (function initTheme(){
@@ -622,7 +601,7 @@ async function logout() {
   location.reload();
 }
 
-/* ── LOAD ALL DATA ── */
+/* ── LOAD ALL ── */
 let isLoading=false;
 async function loadAll() {
   if (!currentUser||isLoading) return;
@@ -748,7 +727,7 @@ function render() {
   document.getElementById('income').textContent=fmt(income);
   document.getElementById('expense').textContent=fmt(expense);
 
-  /* ── Recent transactions: date-grouped, no height cap ── */
+  /* ── Recent: scrollable, date-grouped, last 20 ── */
   const listEl=document.getElementById('list');
   listEl.innerHTML='';
 
@@ -758,7 +737,7 @@ function render() {
     return;
   }
 
-  // Build running balance map from oldest→newest across ALL data
+  // Build running balance map across ALL data (oldest→newest)
   let runBal=0;
   const balMap={};
   [...data].reverse().forEach(t=>{
@@ -766,7 +745,7 @@ function render() {
     balMap[t.id]=runBal;
   });
 
-  // Group recent 20 by calendar date
+  // Group the 20 most recent by calendar date
   const dayMap=new Map();
   recent.forEach(t=>{
     const key=new Date(t.date).toDateString();
@@ -891,7 +870,6 @@ function populateForMonth(selected) {
     sel.appendChild(opt);
   }
 }
-document.getElementById('type').addEventListener('change',updateCategories);
 
 /* ── SAVE TRANSACTION ── */
 const saveBtn=document.getElementById('saveBtn');
@@ -1102,31 +1080,23 @@ function renderInsights() {
 const CHART_COLORS_DARK  =['#f59e0b','#3b82f6','#ef4444','#22c55e','#a855f7','#ec4899','#06b6d4','#f43f5e','#9ca3af','#14b8a6'];
 const CHART_COLORS_PASTEL=['#ffd0a0','#a8c8f4','#f4a8b8','#a8e6c0','#c4a8ff','#ffa8dc','#a8e0f0','#ffa8c8','#b4b4c8','#a8e6c8'];
 const CHART_COLORS_LIGHT =['#d97706','#2563eb','#dc2626','#16a34a','#7c3aed','#db2777','#0891b2','#e11d48','#6b7280','#0d9488'];
-
 function getChartColors() {
   const theme=localStorage.getItem('bm-theme')||'dark';
   if (theme==='pastel') return CHART_COLORS_PASTEL;
   if (theme==='light')  return CHART_COLORS_LIGHT;
   return CHART_COLORS_DARK;
 }
-
 function renderCharts() {
   const CHART_COLORS=getChartColors();
   document.getElementById('chartMonthLabel').textContent=`${monthNames[currentMonth]} ${currentYear}`;
-
   const monthTx=data.filter(t=>txInMonth(t,currentMonth,currentYear));
   let exp=0;
   const catMap={};
-  monthTx.forEach(t=>{
-    if (t.type==='expense') { exp+=t.amount; catMap[t.category]=(catMap[t.category]||0)+t.amount; }
-  });
-
+  monthTx.forEach(t=>{ if(t.type==='expense'){exp+=t.amount;catMap[t.category]=(catMap[t.category]||0)+t.amount;} });
   const sorted=Object.entries(catMap).sort((a,b)=>b[1]-a[1]);
   const cats=sorted.map(e=>e[0]), vals=sorted.map(e=>e[1]);
-
   if (pieChartInst) { pieChartInst.destroy(); pieChartInst=null; }
   const canvas=document.getElementById('pieChart');
-
   if (!cats.length) {
     canvas.style.display='none';
     document.getElementById('chartLegend').innerHTML="<div class='empty'>No expense data</div>";
@@ -1135,23 +1105,12 @@ function renderCharts() {
   }
   canvas.style.display='';
   document.getElementById('catBreakdownCard').style.display='';
-
   const theme=localStorage.getItem('bm-theme')||'dark';
   pieChartInst=new Chart(canvas,{
     type:'doughnut',
-    data:{
-      labels:cats,
-      datasets:[{data:vals,backgroundColor:CHART_COLORS.slice(0,cats.length),borderWidth:3,borderColor:theme==='light'?'#ffffff':'#151515',hoverOffset:6}]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,cutout:'68%',
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{label:ctx=>` ${fmt(ctx.parsed)} (${((ctx.parsed/exp)*100).toFixed(1)}%)`}}
-      }
-    }
+    data:{labels:cats,datasets:[{data:vals,backgroundColor:CHART_COLORS.slice(0,cats.length),borderWidth:3,borderColor:theme==='light'?'#ffffff':'#151515',hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${fmt(ctx.parsed)} (${((ctx.parsed/exp)*100).toFixed(1)}%)`}}}}
   });
-
   const legend=document.getElementById('chartLegend');
   legend.innerHTML='';
   cats.forEach((c,i)=>{
@@ -1159,20 +1118,21 @@ function renderCharts() {
     item.innerHTML=`<span class="chart-legend-swatch" style="background:${CHART_COLORS[i]};"></span>${esc(c)}`;
     legend.appendChild(item);
   });
-
   const breakdown=document.getElementById('catBreakdownList');
   breakdown.innerHTML='';
+  const maxVal=vals[0]||1;
   cats.forEach((c,i)=>{
     const {varBg,varColor,icon}=getCatIcon(c);
-    const pct=exp>0?Math.round(vals[i]/exp*100):0;
+    const pct=exp>0?((vals[i]/exp)*100).toFixed(1):0;
+    const barW=Math.round((vals[i]/maxVal)*100);
     const div=document.createElement('div'); div.className='cat-bar-item';
     div.innerHTML=`
       <div class="cat-bar-top">
-        <div class="cat-bar-icon" style="background:var(${varBg});"><i class="ti ${icon}" style="font-size:15px;color:var(${varColor});"></i></div>
-        <div style="flex:1;min-width:0;"><div class="cat-bar-name">${esc(c)}</div><div class="cat-bar-pct">${pct}% of expenses</div></div>
+        <div class="cat-bar-icon" style="background:var(${varBg});"><i class="ti ${icon}" style="font-size:15px;color:var(${varColor});" aria-hidden="true"></i></div>
+        <div style="flex:1;min-width:0;"><div class="cat-bar-name">${esc(c)}</div><div class="cat-bar-pct">${pct}%</div></div>
         <div class="cat-bar-amt">${fmt(vals[i])}</div>
       </div>
-      <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${pct}%;background:${CHART_COLORS[i]};"></div></div>`;
+      <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${barW}%;background:${CHART_COLORS[i%CHART_COLORS.length]};"></div></div>`;
     breakdown.appendChild(div);
   });
 }
