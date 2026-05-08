@@ -73,30 +73,80 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/budget/sw.j
   --theme-btn-bg:#e5e7eb; --theme-btn-color:#6b7280;
 }
 [data-theme="pastel"] {
-  --bg:#0d0d0d; --card:#181818; --field:#222222;
-  --text:#f0e8ff; --muted:#7a6a8a; --accent:#c4a8ff;
-  --danger:#f4a8b8; --success:#a8e6c0;
-  --bal-card-bg:#1e1428; --bal-card-bg-neg:#1e1014;
-  --income-card-bg:#0e1e18; --expense-card-bg:#1e140e;
-  --income-val:#a8e6c0; --expense-val:#f4a8b8;
-  --nav-bg:rgba(14,14,14,0.85);
-  --logout-bg:#1e1428; --logout-color:#c4a8ff; --logout-border:#3a2a5a;
-  --icon-food-bg:rgba(244,168,184,0.18); --icon-food-color:#f4a8b8;
-  --icon-rent-bg:rgba(255,213,168,0.18); --icon-rent-color:#ffd5a8;
-  --icon-shop-bg:rgba(196,168,255,0.18); --icon-shop-color:#c4a8ff;
-  --icon-travel-bg:rgba(168,200,244,0.18); --icon-travel-color:#a8c8f4;
-  --icon-sub-bg:rgba(168,224,255,0.18); --icon-sub-color:#a8e0ff;
-  --icon-transfer-bg:rgba(180,180,200,0.18); --icon-transfer-color:#b4b4c8;
-  --icon-health-bg:rgba(255,168,200,0.18); --icon-health-color:#ffa8c8;
-  --icon-grocery-bg:rgba(168,230,200,0.18); --icon-grocery-color:#a8e6c8;
-  --icon-salary-bg:rgba(168,230,200,0.18); --icon-salary-color:#a8e6c8;
-  --icon-freelance-bg:rgba(168,224,240,0.18); --icon-freelance-color:#a8e0f0;
-  --icon-bonus-bg:rgba(168,230,200,0.18); --icon-bonus-color:#a8e6c8;
-  --icon-donation-bg:rgba(255,168,220,0.18); --icon-donation-color:#ffa8dc;
-  --icon-default-bg:rgba(180,180,200,0.18); --icon-default-color:#b4b4c8;
-  --theme-btn-active-bg:#c4a8ff; --theme-btn-active-color:#0d0d0d;
-  --theme-btn-bg:#1e1428; --theme-btn-color:#7a6a8a;
+  /* ── Base ── */
+  --bg: #0d0b12;
+  --card: #17132a;
+  --field: #221c38;
+  --text: #f0e8ff;
+  --muted: #a89bc2;
+  --accent: #c084fc;
+
+  /* ── Semantic ── */
+  --danger: #f472b6;
+  --success: #4ade80;
+
+  /* ── Balance card ── */
+  --bal-card-bg: #0f2a1e;
+  --bal-card-bg-neg: #2a0f1a;
+
+  /* ── Income / Expense mini cards ── */
+  --income-card-bg: #0f1f17;
+  --expense-card-bg: #1f0f18;
+  --income-val: #4ade80;
+  --expense-val: #f472b6;
+
+  /* ── Nav ── */
+  --nav-bg: rgba(23, 19, 42, 0.85);
+
+  /* ── Logout button ── */
+  --logout-bg: #221c38;
+  --logout-color: #c084fc;
+  --logout-border: #3d2f6b;
+
+  /* ── Category icons ── */
+  --icon-food-bg: rgba(244, 114, 182, 0.18);
+  --icon-food-color: #f472b6;
+  --icon-rent-bg: rgba(251, 191, 36, 0.18);
+  --icon-rent-color: #fbbf24;
+  --icon-shop-bg: rgba(192, 132, 252, 0.18);
+  --icon-shop-color: #c084fc;
+  --icon-travel-bg: rgba(56, 189, 248, 0.18);
+  --icon-travel-color: #38bdf8;
+  --icon-sub-bg: rgba(99, 179, 237, 0.18);
+  --icon-sub-color: #63b3ed;
+  --icon-transfer-bg: rgba(148, 163, 184, 0.18);
+  --icon-transfer-color: #94a3b8;
+  --icon-health-bg: rgba(251, 113, 133, 0.18);
+  --icon-health-color: #fb7185;
+  --icon-grocery-bg: rgba(74, 222, 128, 0.18);
+  --icon-grocery-color: #4ade80;
+  --icon-salary-bg: rgba(74, 222, 128, 0.18);
+  --icon-salary-color: #4ade80;
+  --icon-freelance-bg: rgba(34, 211, 238, 0.18);
+  --icon-freelance-color: #22d3ee;
+  --icon-bonus-bg: rgba(74, 222, 128, 0.18);
+  --icon-bonus-color: #4ade80;
+  --icon-donation-bg: rgba(244, 114, 182, 0.18);
+  --icon-donation-color: #f472b6;
+  --icon-default-bg: rgba(148, 163, 184, 0.18);
+  --icon-default-color: #94a3b8;
+
+  /* ── Theme switcher ── */
+  --theme-btn-active-bg: #c084fc;
+  --theme-btn-active-color: #0d0b12;
+  --theme-btn-bg: #221c38;
+  --theme-btn-color: #a89bc2;
 }
+[data-theme="pastel"] .nav-item.primary { background:#c084fc; }
+[data-theme="pastel"] .nav-item.primary svg { stroke:#0d0b12; }
+[data-theme="pastel"] .nav-item.active { color:#c084fc; }
+[data-theme="pastel"] .balance-card { border:1px solid rgba(192,132,252,0.2); }
+[data-theme="pastel"] .carry-fwd { border-top-color:rgba(192,132,252,0.15); }
+[data-theme="pastel"] .txn-item { border-bottom-color:#1e1836; }
+[data-theme="pastel"] .day-group-spacer { border-bottom-color:#1e1836; }
+[data-theme="pastel"] .btn-delete { background:rgba(244,114,182,0.15); }
+[data-theme="pastel"] .btn-delete svg { stroke:#f472b6; }
+[data-theme="pastel"] .btn-confirm-delete { background:#f472b6 !important; color:#0d0b12 !important; }
 * { box-sizing:border-box; }
 body { margin:0; font-family:-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--text); max-width:400px; margin:auto; transition:background 0.25s,color 0.25s; }
 .container { padding:16px; padding-bottom:110px; }
@@ -131,7 +181,7 @@ input[type=number] { -moz-appearance:textfield; }
 .nav-item.active { color:var(--text); }
 [data-theme="pastel"] .nav-item.active { color:var(--accent); }
 .nav-item.primary { width:56px !important; height:56px !important; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; margin-top:-30px; }
-[data-theme="pastel"] .nav-item.primary { background:#c4a8ff; }
+[data-theme="pastel"] .nav-item.primary { background:#c084fc; }
 [data-theme="pastel"] .nav-item.primary svg { stroke:#0d0d0d; }
 
 /* ── BALANCE CARD ── */
@@ -410,7 +460,6 @@ input[type=number] { -moz-appearance:textfield; }
     <button class="nav-item primary" onclick="show('add')">
       <svg width="22" height="22" stroke="black" fill="none" stroke-width="2.5"><line x1="11" y1="4" x2="11" y2="18"/><line x1="4" y1="11" x2="18" y2="11"/></svg>
     </button>
-    <!-- FIX: chart icon SVG was snipped, restored fully below -->
     <button id="nav-charts" class="nav-item" onclick="show('charts')">
       <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
       <span>Charts</span>
