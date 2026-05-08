@@ -270,7 +270,6 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
       <h2 style="margin:0;">Overview</h2>
       <button onclick="logout()" class="logout-btn">Logout</button>
     </div>
-    <!-- CHANGE 3a: Theme Switcher REMOVED from here, moved to More sheet -->
     <div class="balance-card" id="balanceCard">
       <div class="bal-label">Balance <span id="homeMonthLabel" style="font-size:11px;color:var(--muted);"></span></div>
       <div class="bal-amount" id="balance">₹0</div>
@@ -285,7 +284,6 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
     </div>
     <div class="card">
       <h3 style="margin:0 0 12px;">Recent Transactions</h3>
-      <!-- CHANGE 1: restored txn-scroll class for scrollability -->
       <div class="txn-scroll" id="list"></div>
     </div>
   </div>
@@ -430,7 +428,7 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
 
 </div>
 
-<!-- NAV — Charts is 4th slot, More is 5th -->
+<!-- NAV -->
 <div class="nav">
   <div class="nav-inner">
     <button id="nav-home" class="nav-item active" onclick="show('home')">
@@ -444,7 +442,6 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
     <button class="nav-item primary" onclick="show('add')">
       <svg width="22" height="22" stroke="black" fill="none" stroke-width="2.5"><line x1="11" y1="4" x2="11" y2="18"/><line x1="4" y1="11" x2="18" y2="11"/></svg>
     </button>
-    <!-- CHANGE 2: added viewBox="0 0 24 24" so the icon doesn't clip at edges -->
     <button id="nav-charts" class="nav-item" onclick="show('charts')">
       <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
       <span>Charts</span>
@@ -521,7 +518,7 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
         SMS Import
       </button>
     </div>
-    <!-- CHANGE 3b: Theme switcher moved here from Home page -->
+    <!-- Theme switcher in More sheet -->
     <div style="margin-top:18px;">
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500;letter-spacing:0.3px;">Theme</div>
       <div class="theme-switcher">
@@ -534,12 +531,19 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
 </div>
 
 <script>
-/* ── THEME SYSTEM ── */
+/* ── STATE — declared first so setTheme can safely reference pieChartInst ── */
+let data=[], budgetsData=[], goalsData=[], customCategories=[];
+let currentUser=null, pieChartInst=null;
+let currentMonth=new Date().getMonth(), currentYear=new Date().getFullYear();
+let editingId=null, deletingId=null, appReady=false;
+
+/* ── THEME SYSTEM — runs immediately after state is declared ── */
 function setTheme(theme) {
   document.body.dataset.theme = theme === 'dark' ? '' : theme;
   localStorage.setItem('bm-theme', theme);
   document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('btn-theme-' + theme).classList.add('active');
+  const btn = document.getElementById('btn-theme-' + theme);
+  if (btn) btn.classList.add('active');
   const addBtn = document.querySelector('.nav-item.primary svg');
   if (addBtn) addBtn.style.stroke = theme === 'pastel' ? '#0d0d0d' : 'black';
   if (pieChartInst) renderCharts();
@@ -565,18 +569,12 @@ function showToast(msg) {
   t._timer=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-/* ---- STATE ---- */
-let data=[], budgetsData=[], goalsData=[], customCategories=[];
-let currentUser=null, pieChartInst=null;
-let currentMonth=new Date().getMonth(), currentYear=new Date().getFullYear();
-let editingId=null, deletingId=null, appReady=false;
-
 const DEFAULT_CATS = {
   expense:['Food','Rent','Shopping','Travel','Subscription','Transfer','Donation','Health','Groceries'],
   income:['Salary','Freelance','Bonus']
 };
 
-/* ── CATEGORY ICON MAP — uses CSS variables for theming ── */
+/* ── CATEGORY ICON MAP ── */
 const CAT_ICON = {
   'Food':         { icon:'ti-tools-kitchen-2', varBg:'--icon-food-bg',     varColor:'--icon-food-color' },
   'Rent':         { icon:'ti-home',            varBg:'--icon-rent-bg',     varColor:'--icon-rent-color' },
