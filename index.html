@@ -125,12 +125,13 @@ body { margin:0; font-family:-apple-system,BlinkMacSystemFont,sans-serif; backgr
 button { width:100%; padding:16px; border-radius:14px; border:none; margin-top:16px; font-weight:600; background:white; color:black; cursor:pointer; }
 button:disabled { opacity:0.5; cursor:not-allowed; }
 
-/* ── INCOME/EXPENSE CARDS (pastel) ── */
-[data-theme="pastel"] #home .card:nth-child(2) { background:none; padding:0; }
-[data-theme="pastel"] #home .card:nth-child(2) > div:first-child { background:var(--income-card-bg); border-radius:14px; border:1px solid rgba(168,230,200,0.15); }
-[data-theme="pastel"] #home .card:nth-child(2) > div:last-child  { background:var(--expense-card-bg); border-radius:14px; border:1px solid rgba(244,168,184,0.15); }
-[data-theme="light"] #home .card:nth-child(2) > div:first-child  { background:var(--income-card-bg); }
-[data-theme="light"] #home .card:nth-child(2) > div:last-child   { background:var(--expense-card-bg); }
+/* ── INCOME/EXPENSE MINI CARDS ── */
+/* FIX: The .row wraps two .card divs. In light/pastel themes we want each
+   card to show its own themed background. We make the wrapper .card
+   transparent and give each inner card its own bg + padding. */
+.income-expense-row { display:flex; gap:12px; margin-top:10px; margin-bottom:12px; }
+.mini-card { flex:1; padding:14px 16px; border-radius:16px; background:var(--income-card-bg); }
+.mini-card.expense { background:var(--expense-card-bg); }
 
 /* ── LOGOUT BUTTON ── */
 .logout-btn { width:auto; padding:8px 20px; font-size:13px; margin:0; border-radius:20px !important; background:var(--logout-bg) !important; color:var(--logout-color) !important; border:1px solid var(--logout-border) !important; font-weight:500; }
@@ -157,12 +158,10 @@ button:disabled { opacity:0.5; cursor:not-allowed; }
 .balance-card .bal-amount { font-size:28px; font-weight:700; }
 .carry-fwd { display:flex; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; }
 [data-theme="light"] .carry-fwd { border-top-color:rgba(0,0,0,0.08); }
-
-/* ── PASTEL balance card positive/negative ── */
 [data-theme="pastel"] .balance-card { border:1px solid rgba(196,168,255,0.15); }
 [data-theme="pastel"] .carry-fwd { border-top-color:rgba(196,168,255,0.1); }
 
-/* ── REST OF ORIGINAL STYLES ── */
+/* ── REST OF STYLES ── */
 .empty { text-align:center; color:#666; padding:16px; }
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
 input[type=number] { -moz-appearance:textfield; }
@@ -215,10 +214,6 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
 .chart-month-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .chart-month-nav button { width:32px; height:32px; border-radius:50%; padding:0; margin:0; background:var(--field); color:var(--text); font-size:18px; display:flex; align-items:center; justify-content:center; }
 .chart-month-nav span { font-size:15px; font-weight:500; }
-.chart-summary-pills { display:flex; gap:8px; margin-bottom:14px; }
-.chart-pill { flex:1; background:var(--field); border-radius:12px; padding:10px 12px; }
-.chart-pill-label { font-size:11px; color:var(--muted); margin-bottom:4px; }
-.chart-pill-val { font-size:15px; font-weight:600; }
 .chart-legend { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
 .chart-legend-item { display:flex; align-items:center; gap:5px; font-size:12px; color:var(--muted); }
 .chart-legend-swatch { width:9px; height:9px; border-radius:2px; display:inline-block; flex-shrink:0; }
@@ -234,12 +229,8 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
 .day-group-header { display:flex; justify-content:space-between; font-size:11px; color:#4b5563; font-weight:500; padding:10px 0 4px; letter-spacing:0.4px; }
 .day-group-spacer { height:6px; border-bottom:1px solid #1a1a1a; margin-bottom:6px; }
 [data-theme="light"] .day-group-spacer { border-bottom-color:#f3f4f6; }
-
-/* ── CATEGORY ICONS (themed) ── */
 .cat-icon-circle { width:36px; height:36px; border-radius:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 [data-theme="pastel"] .cat-icon-circle { border-radius:12px; width:38px; height:38px; }
-
-/* SMS preview styles */
 .preview-card { background:var(--card); border-radius:14px; padding:14px; margin-bottom:10px; }
 .preview-card.income-card { border-left:3px solid var(--success); }
 .preview-card.expense-card { border-left:3px solid var(--danger); }
@@ -278,10 +269,19 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
         <div style="text-align:right;"><div style="color:var(--muted);margin-bottom:2px;" id="thisMonthNetLabel">May net</div><div style="font-weight:600;" id="thisMonthNet">+₹0</div></div>
       </div>
     </div>
-    <div class="row">
-      <div class="card" style="flex:1;margin-right:6px;"><small style="color:var(--muted);">Income</small><div id="income" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--income-val);">₹0</div></div>
-      <div class="card" style="flex:1;margin-left:6px;"><small style="color:var(--muted);">Expense</small><div id="expense" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--expense-val);">₹0</div></div>
+
+    <!-- FIX: replaced .row + .card with dedicated .income-expense-row + .mini-card -->
+    <div class="income-expense-row">
+      <div class="mini-card">
+        <small style="color:var(--muted);">Income</small>
+        <div id="income" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--income-val);">₹0</div>
+      </div>
+      <div class="mini-card expense">
+        <small style="color:var(--muted);">Expense</small>
+        <div id="expense" style="font-size:15px;font-weight:600;margin-top:4px;color:var(--expense-val);">₹0</div>
+      </div>
     </div>
+
     <div class="card">
       <h3 style="margin:0 0 12px;">Recent Transactions</h3>
       <div class="txn-scroll" id="list"></div>
@@ -317,7 +317,7 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
     </div>
   </div>
 
-  <!-- CHARTS -->
+  <!-- CHARTS — summary pills removed -->
   <div id="charts" class="hidden">
     <h2>Analytics</h2>
     <div class="card">
@@ -325,11 +325,6 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
         <button onclick="changeMonth(-1)">&#8249;</button>
         <span id="chartMonthLabel"></span>
         <button onclick="changeMonth(1)">&#8250;</button>
-      </div>
-      <div class="chart-summary-pills">
-        <div class="chart-pill"><div class="chart-pill-label">Income</div><div class="chart-pill-val green" id="chartIncome">₹0</div></div>
-        <div class="chart-pill"><div class="chart-pill-label">Expenses</div><div class="chart-pill-val red" id="chartExpense">₹0</div></div>
-        <div class="chart-pill"><div class="chart-pill-label">Net</div><div class="chart-pill-val" id="chartNet">₹0</div></div>
       </div>
       <div style="position:relative;width:100%;height:220px;">
         <canvas id="pieChart" role="img" aria-label="Donut chart of expenses by category"></canvas>
@@ -518,7 +513,6 @@ a.link-btn { color:var(--accent); background:none; border:none; margin:0; paddin
         SMS Import
       </button>
     </div>
-    <!-- Theme switcher in More sheet -->
     <div style="margin-top:18px;">
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500;letter-spacing:0.3px;">Theme</div>
       <div class="theme-switcher">
@@ -537,7 +531,7 @@ let currentUser=null, pieChartInst=null;
 let currentMonth=new Date().getMonth(), currentYear=new Date().getFullYear();
 let editingId=null, deletingId=null, appReady=false;
 
-/* ── THEME SYSTEM — runs immediately after state is declared ── */
+/* ── THEME ── */
 function setTheme(theme) {
   document.body.dataset.theme = theme === 'dark' ? '' : theme;
   localStorage.setItem('bm-theme', theme);
@@ -574,7 +568,6 @@ const DEFAULT_CATS = {
   income:['Salary','Freelance','Bonus']
 };
 
-/* ── CATEGORY ICON MAP ── */
 const CAT_ICON = {
   'Food':         { icon:'ti-tools-kitchen-2', varBg:'--icon-food-bg',     varColor:'--icon-food-color' },
   'Rent':         { icon:'ti-home',            varBg:'--icon-rent-bg',     varColor:'--icon-rent-color' },
@@ -590,15 +583,12 @@ const CAT_ICON = {
   'Bonus':        { icon:'ti-gift',            varBg:'--icon-bonus-bg',    varColor:'--icon-bonus-color' },
   '__default__':  { icon:'ti-circle-dot',      varBg:'--icon-default-bg',  varColor:'--icon-default-color' },
 };
-function getCatIcon(category) {
-  return CAT_ICON[category] || CAT_ICON['__default__'];
-}
+function getCatIcon(category) { return CAT_ICON[category] || CAT_ICON['__default__']; }
 
 const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const trashIcon=`<svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>`;
 
-/* ---- KEY HELPER ---- */
 function txInMonth(t, month, year) {
   if (t.type==='income' && t.for_month!=null && t.for_year!=null) {
     return t.for_month===month && t.for_year===year;
@@ -607,7 +597,6 @@ function txInMonth(t, month, year) {
   return d.getMonth()===month && d.getFullYear()===year;
 }
 
-/* ---- CATEGORY HELPERS ---- */
 function getCats(type) {
   return [...DEFAULT_CATS[type], ...customCategories.filter(c=>c.type===type).map(c=>c.name)];
 }
@@ -1083,7 +1072,7 @@ function renderInsights() {
   });
 }
 
-/* ---- CHARTS PAGE ---- */
+/* ---- CHARTS — no summary pills ---- */
 const CHART_COLORS_DARK   = ['#f59e0b','#3b82f6','#ef4444','#22c55e','#a855f7','#ec4899','#06b6d4','#f43f5e','#9ca3af','#14b8a6'];
 const CHART_COLORS_PASTEL = ['#ffd0a0','#a8c8f4','#f4a8b8','#a8e6c0','#c4a8ff','#ffa8dc','#a8e0f0','#ffa8c8','#b4b4c8','#a8e6c8'];
 const CHART_COLORS_LIGHT  = ['#d97706','#2563eb','#dc2626','#16a34a','#7c3aed','#db2777','#0891b2','#e11d48','#6b7280','#0d9488'];
@@ -1098,18 +1087,18 @@ function getChartColors() {
 function renderCharts() {
   const CHART_COLORS = getChartColors();
   document.getElementById('chartMonthLabel').textContent = `${monthNames[currentMonth]} ${currentYear}`;
-  const monthTx = data.filter(t => txInMonth(t, currentMonth, currentYear));
-  const inc = monthTx.filter(t=>t.type==='income').reduce((a,t)=>a+t.amount,0);
-  const exp = monthTx.filter(t=>t.type==='expense').reduce((a,t)=>a+t.amount,0);
-  document.getElementById('chartIncome').textContent = fmt(inc);
-  document.getElementById('chartExpense').textContent = fmt(exp);
-  const netEl = document.getElementById('chartNet');
-  netEl.textContent = `${inc-exp>=0?'+':''}${fmt(inc-exp)}`;
-  netEl.style.color = inc-exp>=0 ? 'var(--success)' : 'var(--danger)';
 
-  const catTotals = {};
-  monthTx.filter(t=>t.type==='expense').forEach(t=>{ catTotals[t.category]=(catTotals[t.category]||0)+t.amount; });
-  const sorted = Object.entries(catTotals).sort((a,b)=>b[1]-a[1]);
+  const monthTx = data.filter(t => txInMonth(t, currentMonth, currentYear));
+  let exp = 0;
+  const catMap = {};
+  monthTx.forEach(t => {
+    if (t.type === 'expense') {
+      exp += t.amount;
+      catMap[t.category] = (catMap[t.category] || 0) + t.amount;
+    }
+  });
+
+  const sorted = Object.entries(catMap).sort((a,b) => b[1]-a[1]);
   const cats = sorted.map(e=>e[0]), vals = sorted.map(e=>e[1]);
 
   if (pieChartInst) { pieChartInst.destroy(); pieChartInst=null; }
