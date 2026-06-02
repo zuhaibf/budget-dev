@@ -731,8 +731,16 @@ function applyMode() {
 
   /* ── Home ── */
   // balance card vs expense total card
-  document.getElementById('balanceCard').style.display       = expOnly ? 'none' : '';
-  document.getElementById('expenseTotalCard').style.display  = expOnly ? '' : 'none';
+  const balCard     = document.getElementById('balanceCard');
+  const expTotCard  = document.getElementById('expenseTotalCard');
+  
+  if (expOnly) {
+    balCard.classList.add('hidden');
+    expTotCard.classList.remove('hidden');
+  } else {
+    balCard.classList.remove('hidden');
+    expTotCard.classList.add('hidden');
+  }
   // income mini-card
   document.getElementById('incomeCard').style.display        = expOnly ? 'none' : '';
   // expense card: full width when income hidden
