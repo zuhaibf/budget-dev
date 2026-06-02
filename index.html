@@ -296,9 +296,44 @@ input[type=number] { -moz-appearance:textfield; }
 [data-theme="pastel"] .range-pill.active { color:#090909; }
 
 /* ── EXPENSE ONLY: total expense card ── */
-.expense-total-card { border-radius:18px; padding:20px; margin-bottom:12px; background:var(--bal-card-bg-neg); }
-.expense-total-card .bal-label { font-size:13px; color:var(--muted); margin-bottom:4px; }
-.expense-total-card .bal-amount { font-size:28px; font-weight:700; color:var(--danger); }
+/* ── EXPENSE ONLY: total expense card ── */
+.expense-total-card {
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:12px;
+  background:var(--bal-card-bg-neg);
+}
+.expense-total-card .bal-label {
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.expense-total-card .bal-amount {
+  font-size:28px;
+  font-weight:700;
+  color:var(--danger);
+}
+.expense-total-card .exp-sub-row {
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:12px;
+}
+[data-theme="light"] .expense-total-card .exp-sub-row {
+  border-top-color:rgba(0,0,0,0.08);
+}
+[data-theme="pastel"] .expense-total-card {
+  background:rgba(255,139,110,0.13);
+  border:1px solid rgba(255,139,110,0.12);
+}
+[data-theme="pastel"] .expense-total-card .exp-sub-row {
+  border-top-color:rgba(255,139,110,0.10);
+}
+[data-theme="pastel"] .expense-total-card .bal-amount {
+  color:#ff8b6e;
+}
 </style>
 </head>
 <body>
@@ -335,8 +370,25 @@ input[type=number] { -moz-appearance:textfield; }
 
     <!-- EXPENSE ONLY MODE: total expenses card -->
     <div class="expense-total-card hidden" id="expenseTotalCard">
-      <div class="bal-label">Total Spent <span id="expenseMonthLabel" style="font-size:11px;color:var(--muted);"></span></div>
+      <div class="bal-label">
+        Total Spent
+        <span id="expenseMonthLabel" style="font-size:11px;color:var(--muted);"></span>
+      </div>
       <div class="bal-amount" id="expenseTotalAmt">₹0</div>
+      <div class="exp-sub-row">
+        <div>
+          <div style="color:var(--muted);margin-bottom:2px;">Today</div>
+          <div style="font-weight:600;" id="expTodayAmt">₹0</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:var(--muted);margin-bottom:2px;">Transactions</div>
+          <div style="font-weight:600;" id="expTxnCount">0</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="color:var(--muted);margin-bottom:2px;">Daily avg</div>
+          <div style="font-weight:600;" id="expDailyAvg">₹0</div>
+        </div>
+      </div>
     </div>
 
     <div class="row" id="homeStatsRow">
