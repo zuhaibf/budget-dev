@@ -962,12 +962,32 @@ function render() {
   let income=0, expense=0;
   thisMonthTx.forEach(t => { if(t.type==='income') income+=t.amount; else expense+=t.amount; });
 
-  if (expOnly) {
-    // Expense-only mode: just show total spent this month
-    document.getElementById('expenseTotalAmt').textContent = fmt(expense);
-    document.getElementById('expenseMonthLabel').textContent = `· ${monthNames[currentMonth]}`;
-    document.getElementById('expense').textContent = fmt(expense);
-  } else {
+if (expOnly) {
+  document.getElementById('expenseTotalAmt').textContent    = fmt(expense);
+  document.getElementById('expenseMonthLabel').textContent  = `· ${monthNames[currentMonth]}`;
+  document.getElementById('expense').textContent            = fmt(expense);
+
+  // Today's spend
+  const todayStr = new Date().toDateString();
+  const todayExp = data
+    .filter(t => t.type==='expense' && new Date(t.date).toDateString()===todayStr)
+    .reduce((a,t) => a+t.amount, 0);
+  document.getElementById('expTodayAmt').textContent = fmt(todayExp);
+
+  // Transaction count this month
+  const txCount = data.filter(t =>
+    t.type==='expense' && txInMonth(t, currentMonth, currentYear)
+  ).length;
+  document.getElementById('expTxnCount').textContent = txCount;
+
+  // Daily average
+  const today        = new Date();
+  const daysInMonth  = new Date(currentYear, currentMonth+1, 0).getDate();
+  const daysPassed   = (today.getMonth()===currentMonth && today.getFullYear()===currentYear)
+    ? today.getDate() : daysInMonth;
+  const dailyAvg     = daysPassed > 0 ? Math.round(expense / daysPassed) : 0;
+  document.getElementById('expDailyAvg').textContent = fmt(dailyAvg);
+} else {
     // Full mode
     let totalIncome=0, totalExpense=0;
     data.forEach(t => t.type==='income' ? totalIncome+=t.amount : totalExpense+=t.amount);
